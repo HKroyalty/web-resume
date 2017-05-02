@@ -1,13 +1,17 @@
+var i = ["Home","Introduction","Skills","Course","Production"];
+
 $(function() {
+	$(".section").addClass("initing"),
 	$('#fullpage').fullpage({
 		scrollingSpeed: 600,
 		css3: true,
 		resize: true,
 		loopTop: true,
 		loopBottom: true,
-		anchors: ["firstPage","secondPage","3rdPage","4rdPage","5rdPage"],
+		navigation: true,
+		navigationPosition: 'right',
+		navigationTooltips: ["Home","Introduction","Skills","Course","Production"],
 		verticalCentered: true,
-		sectionsColor: ['#23c9b1','#90c8bd','#a8efe9','#c1e8ed','#b8efd0'],
 		afterRender: function(){
 			$("#home").css({"display":"block"}).addClass("home_zoom");
 			$("header").before("<div id='header' style='opacity:0'></div>");	
@@ -94,12 +98,13 @@ $(function() {
 				})
 			}
 		},
-		// onLeave:function(index,nextIndex, direction){
-		// 	if(index==2||index==3||index==4||index==5){
-		// 		$(".title_en").remove();	
-		// 	}
-		// }
+		onLeave: function(i) {
+            for (var a = $(".section"), t = 0; t < a.length; ++t)
+              //t=0,1,2,3,4   i = section[index] a.length=5
+                t + 1 !== i ? $(a[t]).addClass("leaving") : $(a[t]).removeClass("leaving")
+        }
 	});
+	$(".initing").removeClass("initing")
 });
 
 
