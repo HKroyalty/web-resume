@@ -1,12 +1,11 @@
-var i = ["Home","Introduction","Skills","Course","Production"];
 
 $(function() {
 	$(".section").addClass("initing"),
 	$('#fullpage').fullpage({
-		scrollingSpeed: 600,
+		scrollingSpeed: 500,
 		css3: true,
 		resize: true,
-		loopTop: true,
+		loopTop: false,
 		loopBottom: true,
 		navigation: true,
 		navigationPosition: 'right',
@@ -98,13 +97,30 @@ $(function() {
 				})
 			}
 		},
-		onLeave: function(i) {
+		//翻页效果
+		onLeave: function(i, o, e) {
             for (var a = $(".section"), t = 0; t < a.length; ++t)
-              //t=0,1,2,3,4   i = section[index] a.length=5
-                t + 1 !== i ? $(a[t]).addClass("leaving") : $(a[t]).removeClass("leaving")
+				t + 1 !== o ? $(a[t]).addClass("leaving") : $(a[t]).removeClass("leaving")
         }
 	});
-	$(".initing").removeClass("initing")
+	$(".initing").removeClass("initing"),
+
+	// 技能切换
+	$(".skills_img").click(function(){
+		$(".skills_int").each(function(){
+			if($(this).is(":visible")){
+				$(this).slideUp(200);
+				$(this).prev().removeClass("skills_flag_scale");
+			}
+		});
+		if($(this).siblings(".skills_int").is(":hidden")){
+			$(this).siblings(".skills_int").slideDown(400);
+			$(this).siblings(".skills_flag").addClass("skills_flag_scale");
+		}else{
+			$(this).siblings(".skills_int").slideUp(200);
+			$(this).siblings(".skills_flag").removeClass("skills_flag_scale");
+		}
+	});
 });
 
 
